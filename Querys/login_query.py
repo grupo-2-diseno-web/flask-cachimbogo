@@ -1,12 +1,13 @@
 from DB.connection import Connection
-from Utils.utils import get_crypt
+from Utils.utils import get_crypt, get_select_query
+import Utils.constants as constants
 
 
 def user_exists(username):
     conn = Connection.mysql.connect()
     cursor = conn.cursor()
-    cursor.execute(
-        "SELECT usuario FROM usuario WHERE usuario =%s;", (username,))
+    query = get_select_query(constants.USER_COLUMN, constants.USER_TABLE,constants.USER_WHERE_COLUMN)
+    cursor.execute(query, (username,))
     data = cursor.fetchall()
     cursor.close()
     return len(data) is not 0
@@ -15,8 +16,8 @@ def user_exists(username):
 def is_password(username, password):
     conn = Connection.mysql.connect()
     cursor = conn.cursor()
-    cursor.execute(
-        "SELECT password FROM usuario WHERE usuario =%s;", (username,))
+    query = get_select_query(constants.PASSWORD_COLUMN, constants.USER_TABLE, constants.USER_WHERE_COLUMN)
+    cursor.execute(query, (username,))
     data = cursor.fetchall()
     cursor.close()
     password_hash = get_crypt(password)
