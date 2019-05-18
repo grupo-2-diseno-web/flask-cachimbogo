@@ -1,0 +1,5 @@
+[config]
+user = root
+password = asd123
+bd = cachimbogo
+host = localhost
