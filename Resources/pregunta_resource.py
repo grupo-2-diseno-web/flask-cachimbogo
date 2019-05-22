@@ -5,7 +5,12 @@ from Utils.utils import build_response
 
 
 class Pregunta(Resource):
-    def get(self):
-        data = get_pregunta_by_id(353)
-        data_response = build_response(constants.PREGUNTA_COLUMN, data)
-        return {'data': data_response}, 200
+    def get(self, id=None, completado=None):
+        try:
+            data = None
+            if id is None and completado is None:
+                data = get_pregunta_by_id(353)
+            data_response = build_response(constants.PREGUNTA_COLUMN, data)
+            return {'data': data_response}, 200
+        except Exception as e:
+            return {'error': str(e)}, 500

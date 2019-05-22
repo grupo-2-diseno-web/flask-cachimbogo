@@ -34,7 +34,7 @@ class Login(Resource):
                 return {'message': constants.FIELD_NULL}, 400
 
         except Exception as e:
-            return {'error': str(e)}
+            return {'error': str(e)}, 500
 
     @jwt_required
     def get(self):
