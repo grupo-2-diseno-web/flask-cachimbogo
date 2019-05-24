@@ -14,7 +14,7 @@ def is_password(username, password):
                           constants.USER_TABLE, constants.USER_WHERE_COLUMN, (username,))
     if len(data) is not 0:
         password_hash = get_crypt(password)
-        password_selected = data[0][0]
+        password_selected = data[0]["password"]
         return password_hash == password_selected
     else:
         return False

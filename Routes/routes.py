@@ -10,4 +10,4 @@ def init_api(app):
     api = Api(app)
     api.add_resource(Login, '/login')
     api.add_resource(Pregunta, '/pregunta/<int:id>/<int:completado>',
-                     '/pregunta', '/pregunta/<int:id>')
+                     '/pregunta', '/pregunta/<int:id>', '/pregunta/<string:tipo>/<int:id>')

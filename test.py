@@ -1,3 +1,3 @@
 from random import choice
-_tuple = (2,1,5,33,51,43)
-print(choice(_tuple))
+_tuple = [{'id_pregunta': 353}, {'id_pregunta': 354}]
+print(choice(_tuple)[0])

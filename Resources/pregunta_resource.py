@@ -5,12 +5,12 @@ from Utils.utils import build_response
 
 
 class Pregunta(Resource):
-    def get(self, id=None, completado=None):
+    def get(self, id=None, completado=None, tipo=None):
         try:
             data = None
             if id is None and completado is None:
-                data = get_random_questions(10,1)
-            data_response = build_response(constants.PREGUNTA_COLUMN, data)
-            return {'data': data_response}, 200
+                data = get_random_questions(10, 1)
+
+            return {'data': data}, 200
         except Exception as e:
             return {'error': str(e)}, 500

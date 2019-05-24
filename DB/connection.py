@@ -1,4 +1,4 @@
-from flaskext.mysql import MySQL
+from DB.mysql import MySQL
 from Utils.utils import get_config
 
 
