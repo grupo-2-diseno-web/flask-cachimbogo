@@ -22,11 +22,8 @@ def get_random_questions(id_subtema, completado):
     i = 1
     while i <= cantidad:
         random_id = choice(id_preguntas)[0]
-        print(random_id)
         if random_id not in id_selected:
-            print("if")
             id_selected.append(random_id)
             random_questions.append(get_pregunta_by_id(random_id)[0])
-            print(random_questions)
             i += 1
     return random_questions

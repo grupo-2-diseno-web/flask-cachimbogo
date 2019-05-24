@@ -16,7 +16,60 @@ def get_crypt(word):
     return word_hash
 
 
-def get_select_query(columns, table, where_columns):
+def get_delete_query(table, where_columns = None):
+    query = "DELETE FROM " + table
+    if where_columns is None:
+        query += ";"
+    else:
+        length = len(where_columns)
+        i = 0
+        query += " WHERE "
+        while length - 1 > i:
+            query += where_columns[i] + " = %s, "
+            i += 1
+        query += where_columns[i] + " = %s;"
+    return query
+
+
+def get_update_query(columns, table, where_columns = None):
+    query = "UPDATE " + table + " SET "
+    i = 0
+    length = len(columns)
+    while length -1 > i:
+        query += columns[i] + " = %s, "
+        i += 1
+    query += columns[i] + " = %s"
+    if where_columns is None:
+        query += ";"
+    else:
+        length = len(where_columns)
+        i = 0
+        query += " WHERE "
+        while length - 1 > i:
+            query += where_columns[i] + " = %s, "
+            i += 1
+        query += where_columns[i] + " = %s;"
+    return query
+
+
+def get_insert_query(columns,table):
+    query = "INSERT INTO " + table + "("
+    i = 0
+    length = len(columns)
+    while length - 1 > i:
+        query += columns[i] + ", "
+        i += 1
+    query += columns[i] + ") VALUES ("
+    i = 0
+    length = len(columns)
+    while length - 1 > i:
+        query += "%s, "
+        i += 1 
+    query += "%s);"
+    return query
+
+
+def get_select_query(columns, table, where_columns = None):
     query = "SELECT "
     i = 0
     length = len(columns)
@@ -24,10 +77,10 @@ def get_select_query(columns, table, where_columns):
         query += columns[i] + ", "
         i += 1
     query += columns[i] + " FROM " + table
-    length = len(where_columns)
-    if length is 0:
+    if where_columns is None:
         query += ";"
     else:
+        length = len(where_columns)
         i = 0
         query += " WHERE "
         while length - 1 > i:
