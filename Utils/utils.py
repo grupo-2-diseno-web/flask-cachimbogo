@@ -16,7 +16,7 @@ def get_crypt(word):
     return word_hash
 
 
-def get_delete_query(table, where_columns = None):
+def get_delete_query(table, where_columns=None):
     query = "DELETE FROM " + table
     if where_columns is None:
         query += ";"
@@ -31,11 +31,11 @@ def get_delete_query(table, where_columns = None):
     return query
 
 
-def get_update_query(columns, table, where_columns = None):
+def get_update_query(columns, table, where_columns=None):
     query = "UPDATE " + table + " SET "
     i = 0
     length = len(columns)
-    while length -1 > i:
+    while length - 1 > i:
         query += columns[i] + " = %s, "
         i += 1
     query += columns[i] + " = %s"
@@ -52,7 +52,7 @@ def get_update_query(columns, table, where_columns = None):
     return query
 
 
-def get_insert_query(columns,table):
+def get_insert_query(columns, table):
     query = "INSERT INTO " + table + "("
     i = 0
     length = len(columns)
@@ -64,12 +64,12 @@ def get_insert_query(columns,table):
     length = len(columns)
     while length - 1 > i:
         query += "%s, "
-        i += 1 
+        i += 1
     query += "%s);"
     return query
 
 
-def get_select_query(columns, table, where_columns = None):
+def get_select_query(columns, table, where_columns=None):
     query = "SELECT "
     i = 0
     length = len(columns)
@@ -110,3 +110,20 @@ def build_dictionary(names, array_values):
         data[names[i]] = array_values[i]
         i += 1
     return data
+
+
+def set_params(parser, params_name, types, helps):
+    i = 0
+    length = len(params_name)
+    while length > i:
+        if types[i] is "int":
+            parser.add_argument(params_name[i], type=int,
+                                help=helps[i])
+        if types[i] is "string":
+            parser.add_argument(params_name[i], type=str,
+                                help=helps[i])
+        i += 1
+
+
+def get_params(args, params_name):
+    return [args[param_name] for param_name in params_name]

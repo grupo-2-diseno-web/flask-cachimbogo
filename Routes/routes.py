@@ -1,6 +1,7 @@
 from flask_restful import Api
 from Resources.login_resource import Login
 from Resources.pregunta_resource import Pregunta
+from Resources.usuario_resource import Usuario
 
 
 api = None
@@ -11,3 +12,4 @@ def init_api(app):
     api.add_resource(Login, '/login')
     api.add_resource(Pregunta, '/pregunta/<int:id>/<int:completado>',
                      '/pregunta', '/pregunta/<int:id>', '/pregunta/<string:tipo>/<int:id>')
+    api.add_resource(Usuario, '/usuario')

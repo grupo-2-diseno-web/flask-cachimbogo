@@ -16,20 +16,38 @@ def execute_select(columns, table, where_columns=None, where_values=None):
             return data
     except pymysql.Error as e:
         print("Error %d: %s" % (e.args[0], e.args[1]))
-        return ()
+        return []
     finally:
         cursor.close()
 
 
 def execute_insert(columns, table, values):
     try:
-        with Connection.mysql.get_db().cursor() as cursor:
+        with Connection.mysql.get_db() as cursor:
             query = get_insert_query(columns, table)
             cursor.execute(query, values)
             # Insertar commit
+            cursor.connection.commit()
+            return True
+    except pymysql.Error as e:
+        print("Error %d: %s" % (e.args[0], e.args[1]))
+        cursor.connection.rollback()
+        return False
+    finally:
+        cursor.close()
+
+
+def execute_join(join_query, where_values=None):
+    try:
+        with Connection.mysql.get_db().cursor() as cursor:
+            if where_values is None:
+                cursor.execute(join_query)
+            else:
+                cursor.execute(join_query, where_values)
+            data = cursor.fetchall()
             return data
     except pymysql.Error as e:
         print("Error %d: %s" % (e.args[0], e.args[1]))
-        return ()
+        return []
     finally:
         cursor.close()

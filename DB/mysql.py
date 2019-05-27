@@ -26,6 +26,7 @@ class MySQL(object):
         self.app.config.setdefault('MYSQL_USE_UNICODE', True)
         self.app.config.setdefault(
             'MYSQL_CURSOR_CLASS', pymysql.cursors.DictCursor)
+        self.app.config.setdefault('MYSQL_AUTOCOMMIT', False)
         # Flask 0.9 or later
         if hasattr(app, 'teardown_appcontext'):
             self.app.teardown_request(self.teardown_request)
@@ -53,6 +54,8 @@ class MySQL(object):
             self.connect_args['use_unicode'] = self.app.config['MYSQL_USE_UNICODE']
         if self.app.config['MYSQL_CURSOR_CLASS']:
             self.connect_args['cursorclass'] = self.app.config['MYSQL_CURSOR_CLASS']
+        if self.app.config['MYSQL_AUTOCOMMIT']:
+            self.connect_args['autocommit'] = self.app.config['MYSQL_AUTOCOMMIT']
         return pymysql.connect(**self.connect_args)
 
     def teardown_request(self, exception):
