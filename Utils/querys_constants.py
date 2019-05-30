@@ -29,4 +29,4 @@ PREGUNTA_POPULATE = "SELECT p.id_pregunta, p.enunciado, p.clave1, p.clave2, p.cl
 USUARIO_ASIGNATURA = "SELECT a.id_asignatura, a2.nombre, a.porcentaje, a2.imagen FROM usuario_asignatura AS a INNER JOIN asignatura a2 ON a.id_asignatura = a2.id_asignatura WHERE a.id_usuario = %s;"
 
 # INSERT INTO
-USUARIO_ASIGNATURA_ALL = "INSERT INTO usuario_asignatura SELECT %s, id_asignatura, 0 FROM asignatura WHERE id_asignatura NOT INT (19,8)"
+USUARIO_ASIGNATURA_ALL = "INSERT INTO usuario_asignatura SELECT %s, id_asignatura, 0 FROM asignatura WHERE id_asignatura NOT IN (19,8)"

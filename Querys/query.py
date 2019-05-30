@@ -23,7 +23,7 @@ def execute_select(columns, table, where_columns=None, where_values=None):
 
 def execute_insert(columns, table, values):
     try:
-        with Connection.mysql.get_db() as cursor:
+        with Connection.mysql.get_db().cursor() as cursor:
             query = get_insert_query(columns, table)
             cursor.execute(query, values)
             # Insertar commit
@@ -55,7 +55,7 @@ def execute_join(join_query, where_values=None):
 
 def execute_insert_into(insert_into_query, where_values=None):
     try:
-        with Connection.mysql.get_db() as cursor:
+        with Connection.mysql.get_db().cursor() as cursor:
             cursor.execute(insert_into_query, where_values)
             # Insertar commit
             cursor.connection.commit()
