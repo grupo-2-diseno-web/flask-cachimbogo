@@ -1,5 +1,7 @@
 # COLUMNS
 USER_COLUMN = ["usuario"]
+USER_ALL = ["id_usuario", "usuario", "nombres",
+            "apellidos", "correo", "monedas"]
 PASSWORD_COLUMN = ["password"]
 PREGUNTAID_COLUMN = ["id_pregunta"]
 PREGUNTA_COLUMN = ["id_pregunta", "enunciado", "clave1", "clave2", "clave3", "clave4",

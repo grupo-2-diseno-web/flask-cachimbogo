@@ -2,10 +2,12 @@ from flask import Flask
 from Routes.routes import init_api
 from DB.connection import Connection
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 import os
 
 
 app = Flask(__name__)
+CORS(app)
 con = Connection()
 con.init_database(app)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
