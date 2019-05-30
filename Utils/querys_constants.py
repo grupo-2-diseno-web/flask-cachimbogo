@@ -6,7 +6,7 @@ USER_ALL = ["id_usuario", "usuario", "nombres",
 PASSWORD_COLUMN = ["password"]
 PREGUNTAID_COLUMN = ["id_pregunta"]
 PREGUNTA_COLUMN = ["id_pregunta", "enunciado", "clave1", "clave2", "clave3", "clave4",
-                   "clave5", "estado", "informacion", "id_dificultad"]
+                   "clave5", "estado", "informacion", "id_dificultad", "correcta_num"]
 RESPUESTA_COLUMN = ["correcta_num", "informacion"]
 TEMA_COLUMN = ["id_tema", "nombre"]
 SUBTEMA_COLUMN = ["id_subtema", "nombre"]
