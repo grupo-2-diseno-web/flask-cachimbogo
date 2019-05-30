@@ -23,3 +23,8 @@ USUARIO_PARAMS = ["usuario", "password",
 USUARIO_PARAMS_TYPE = ["string", "string", "string", "string", "string", "int"]
 USUARIO_PARAMS_HELP = ["Nombre del usuario", "Contraseña del usuario", "Nombres del usuario", "Apellidos del usuario",
                        "Correo del usuario", "Monedas del usuario"]
+
+#RESPUESTA RESOURCE
+RESPUESTA_PARAMS = ["id_pregunta", "correcta_num"]
+RESPUESTA_PARAMS_TYPE = ["int", "int"]
+RESPUESTA_PARAMS_HELP = ["ID de la pregunta", "Número de la clave elegida"]

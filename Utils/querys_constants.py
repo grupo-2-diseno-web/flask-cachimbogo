@@ -4,6 +4,7 @@ PASSWORD_COLUMN = ["password"]
 PREGUNTAID_COLUMN = ["id_pregunta"]
 PREGUNTA_COLUMN = ["id_pregunta", "enunciado", "clave1", "clave2", "clave3", "clave4",
                    "clave5", "estado", "informacion", "id_dificultad"]
+RESPUESTA_COLUMN = ["correcta_num", "informacion"]
 
 # TABLES
 PREGUNTA_TABLE = "pregunta"
