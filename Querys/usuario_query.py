@@ -12,7 +12,7 @@ def insert_usuario(values):
         usuario = execute_select(querys_constants.USERID_COLUMN,
                                  querys_constants.USER_TABLE, querys_constants.USER_WHERE_COLUMN, (values[0]))
         insert = execute_insert_into(
-            querys_constants.USUARIO_ASIGNATURA_ALL, (usuario[0]['id_usuario']))
+            querys_constants.USUARIO_ASIGNATURA_ALL, (usuario[0]['id_usuario'],))
     return insert
 
 
