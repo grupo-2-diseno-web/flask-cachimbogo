@@ -51,3 +51,18 @@ def execute_join(join_query, where_values=None):
         return []
     finally:
         cursor.close()
+
+
+def execute_insert_into(insert_into_query, where_values=None):
+    try:
+        with Connection.mysql.get_db() as cursor:
+            cursor.execute(insert_into_query, where_values)
+            # Insertar commit
+            cursor.connection.commit()
+            return True
+    except pymysql.Error as e:
+        print("Error %d: %s" % (e.args[0], e.args[1]))
+        cursor.connection.rollback()
+        return False
+    finally:
+        cursor.close()

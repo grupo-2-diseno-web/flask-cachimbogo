@@ -3,6 +3,7 @@ from Resources.login_resource import Login
 from Resources.pregunta_resource import Pregunta
 from Resources.usuario_resource import Usuario
 from Resources.respuesta_resource import Respuesta
+from Resources.usuario_asignatura_resource import UsuarioAsignatura
 
 
 api = None
@@ -15,3 +16,4 @@ def init_api(app):
                      '/pregunta', '/pregunta/<int:id>', '/pregunta/<string:tipo>/<int:id>')
     api.add_resource(Usuario, '/usuario')
     api.add_resource(Respuesta, '/respuesta')
+    api.add_resource(UsuarioAsignatura, '/usuarioAsignatura')
