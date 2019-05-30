@@ -27,7 +27,7 @@ class Login(Resource):
             if self.username and self.password:
                 if user_exists(self.username) and is_password(self.username, self.password):
                     access_token = create_access_token(identity=self.username)
-                    response = select_usuario(self.username)
+                    response = select_usuario(self.username)[0]
                     response['access_token'] = access_token
                     return response, 200
                 else:
