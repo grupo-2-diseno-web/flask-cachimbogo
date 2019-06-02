@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse
-import Utils.messages_constants as messages_constants
-import Utils.params_constants as params_constants
-from Querys.respuesta_query import check_answer
+import Resources.Respuesta.params_constants as pc
+from .respuesta_query import check_answer
 from Utils.utils import set_params, get_params
 
 
@@ -10,11 +9,11 @@ class Respuesta(Resource):
         try:
             # Parse the arguments
             parser = reqparse.RequestParser()
-            set_params(parser, params_constants.RESPUESTA_PARAMS,
-                       params_constants.RESPUESTA_PARAMS_TYPE, params_constants.RESPUESTA_PARAMS_HELP)
+            set_params(parser, pc.PARAMS,
+                       pc.PARAMS_TYPE, pc.PARAMS_HELP)
             args = parser.parse_args()
 
-            params = get_params(args, params_constants.RESPUESTA_PARAMS)
+            params = get_params(args, pc.PARAMS)
 
             response = check_answer(params[0], params[1])
 

@@ -1,3 +1,4 @@
+from Utils.crypto import Crypto
 import configparser
 import hashlib
 
@@ -9,11 +10,13 @@ def get_config():
     return config_parser
 
 
-def get_crypt(word):
-    h256 = hashlib.sha256()
-    h256.update(word.encode())
-    word_hash = h256.hexdigest()
-    return word_hash
+def get_crypto(word):
+    hash_bcrypt = Crypto.bcrypt.generate_password_hash(word)
+    return hash_bcrypt
+
+
+def check_crypto(hash_bcrypt, word):
+    return Crypto.bcrypt.check_password_hash(hash_bcrypt, word)
 
 
 def get_delete_query(table, where_columns=None):

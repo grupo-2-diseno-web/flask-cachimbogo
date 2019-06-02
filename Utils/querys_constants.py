@@ -13,12 +13,13 @@ SUBTEMA_COLUMN = ["id_subtema", "nombre"]
 
 # TABLES
 PREGUNTA_TABLE = "pregunta"
-USER_TABLE = "usuario"
+
 TEMA_TABLE = "tema"
 SUBTEMA_TABLE = "subtema"
 
 # WHERE COLUMN
 USER_WHERE_COLUMN = ["usuario"]
+USERCHECK_WHERE_COLUMN = ["usuario", "correo"]
 PREGUNTA_SUBTEMA_WHERE = ["id_subtema"]
 PREGUNTAID_WHERE = ["id_pregunta"]
 ASIGNATURAID_WHERE = ["id_asignatura"]
