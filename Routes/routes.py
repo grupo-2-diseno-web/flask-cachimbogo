@@ -2,10 +2,10 @@ from flask_restful import Api
 from Resources.Login.login_resource import Login
 from Resources.Pregunta.pregunta_resource import Pregunta
 from Resources.Usuario.usuario_resource import Usuario
-from Resources.respuesta_resource import Respuesta
+from Resources.Respuesta.respuesta_resource import Respuesta
 from Resources.usuario_asignatura_resource import UsuarioAsignatura
 from Resources.tema_resource import Tema
-from Resources.subtema_resource import Subtema
+from Resources.Subtema.subtema_resource import Subtema
 
 
 api = None

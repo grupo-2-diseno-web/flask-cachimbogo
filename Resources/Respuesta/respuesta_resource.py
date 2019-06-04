@@ -1,10 +1,14 @@
 from flask_restful import Resource, reqparse
 import Resources.Respuesta.params_constants as pc
-from .respuesta_query import check_answer
+from .respuesta_query import RespuestaQuery
 from Utils.utils import set_params, get_params
 
 
 class Respuesta(Resource):
+
+    def __init__(self):
+        self.query = RespuestaQuery()
+
     def post(self):
         try:
             # Parse the arguments
@@ -15,7 +19,7 @@ class Respuesta(Resource):
 
             params = get_params(args, pc.PARAMS)
 
-            response = check_answer(params[0], params[1])
+            response = self.query.check_answer(params[0], params[1])
 
             return response, 200
 

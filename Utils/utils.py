@@ -1,6 +1,5 @@
 from Utils.crypto import Crypto
 import configparser
-import hashlib
 
 
 def get_config():

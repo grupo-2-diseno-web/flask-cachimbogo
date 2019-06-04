@@ -2,10 +2,13 @@ from flask_restful import Resource, reqparse
 import Utils.messages_constants as mc
 import Resources.Usuario.params_constants as pc
 from Utils.utils import set_params, get_params
-from .usuario_query import insert_usuario
+from .usuario_query import UsuarioQuery
 
 
 class Usuario(Resource):
+
+    def __init__(self):
+        self.query = UsuarioQuery()
 
     def post(self):
         try:
@@ -17,7 +20,7 @@ class Usuario(Resource):
 
             params = get_params(args, pc.PARAMS)
 
-            if insert_usuario(params):
+            if self.query.insert_usuario(params):
                 return {'message': mc.INSERT_SUCCESS}, 201
             else:
                 return {'error': mc.DB_ERROR}, 500

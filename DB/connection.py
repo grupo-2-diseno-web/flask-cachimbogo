@@ -1,5 +1,6 @@
 from DB.mysql import MySQL
 from Utils.utils import get_config
+import configparser
 import os
 
 
@@ -8,12 +9,12 @@ class Connection(object):
     mysql = None
 
     def __init__(self):
-        pass
-
-    def init_database(self, app):
         Connection.mysql = MySQL()
+
+        
+    def init_database(self, app):
         if 'ENV' not in os.environ:
-            config_parser = get_config()
+            config_parser = self.get_config()
             app.config['MYSQL_DATABASE_USER'] = config_parser.get(
                 'config', 'user')
             app.config['MYSQL_DATABASE_PASSWORD'] = config_parser.get(
@@ -27,3 +28,11 @@ class Connection(object):
             app.config['MYSQL_DATABASE_DB'] = os.environ['DATABASE_DB']
             app.config['MYSQL_DATABASE_HOST'] = os.environ['DATABASE_HOST']
         Connection.mysql.init_app(app)
+    
+
+    @staticmethod
+    def get_config():
+        config_parser = configparser.RawConfigParser()
+        config_file_path = r'DB/config.txt'
+        config_parser.read(config_file_path)
+        return config_parser
