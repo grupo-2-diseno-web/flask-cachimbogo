@@ -1,13 +1,17 @@
 from flask_restful import Resource
-from Querys.subtema_query import select_subtema
+from .subtema_query import SubtemaQuery
 import Utils.messages_constants as mc
 
 
 class Subtema(Resource):
+
+    def __init__(self, *args, **kwargs):
+        self.query = SubtemaQuery()
+
     def get(self, id_tema=None):
         try:
             if id_tema is not None:
-                data = select_subtema(id_tema)
+                data = self.query.select_subtema(id_tema)
                 return {'data': data}, 200
             else:
                 return {'error': mc.RESOURCE_NOT_FOUND}, 400

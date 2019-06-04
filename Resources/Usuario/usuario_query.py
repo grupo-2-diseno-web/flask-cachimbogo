@@ -4,6 +4,7 @@ from Utils.crypto import Crypto
 from Querys.query import Query
 from pymysql import Error
 
+
 class UsuarioQuery(Query):
 
     def insert_usuario(self, usuario):
@@ -25,4 +26,5 @@ class UsuarioQuery(Query):
 
 
 def check_user(username, email):
+    # select verificando usuario y correo
     pass

@@ -1,6 +1,8 @@
-import Utils.querys_constants as querys_constants
-from Querys.query import execute_select
+import Resources.Subtema.querys_constants as qc
+from Querys.query import Query
 
 
-def select_subtema(id_tema):
-    return execute_select(querys_constants.SUBTEMA_COLUMN, querys_constants.SUBTEMA_TABLE, querys_constants.TEMAID_WHERE, (id_tema,))
+class SubtemaQuery(Query):
+
+    def select_subtema(self, id_tema):
+        return self.execute_select(qc.SUBTEMA_COLUMN, qc.SUBTEMA_TABLE, qc.TEMAID_WHERE, [id_tema, ])

@@ -1,8 +1,8 @@
-#COLUMNS
+# COLUMNS
 RESPUESTA_COLUMN = ["correcta_num", "informacion"]
 
-#TABLES
+# TABLES
 PREGUNTA_TABLE = "pregunta"
 
-#WHERE COLUMN
+# WHERE COLUMN
 PREGUNTAID_WHERE = ["id_pregunta"]

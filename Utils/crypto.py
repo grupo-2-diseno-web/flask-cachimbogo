@@ -9,12 +9,10 @@ class Crypto(object):
         app.config['BCRYPT_HANDLE_LONG_PASSWORDS'] = True
         Crypto.bcrypt = Bcrypt(app)
 
-    
     @classmethod
     def get_crypto(cls, word):
         hash_bcrypt = cls.bcrypt.generate_password_hash(word)
         return hash_bcrypt
-    
 
     @classmethod
     def check_crypto(cls, hash_bcrypt, word):

@@ -11,7 +11,6 @@ class Connection(object):
     def __init__(self):
         Connection.mysql = MySQL()
 
-        
     def init_database(self, app):
         if 'ENV' not in os.environ:
             config_parser = self.get_config()
@@ -28,7 +27,6 @@ class Connection(object):
             app.config['MYSQL_DATABASE_DB'] = os.environ['DATABASE_DB']
             app.config['MYSQL_DATABASE_HOST'] = os.environ['DATABASE_HOST']
         Connection.mysql.init_app(app)
-    
 
     @staticmethod
     def get_config():

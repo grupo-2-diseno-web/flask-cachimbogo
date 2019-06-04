@@ -15,7 +15,7 @@ SUBTEMA_COLUMN = ["id_subtema", "nombre"]
 PREGUNTA_TABLE = "pregunta"
 
 TEMA_TABLE = "tema"
-SUBTEMA_TABLE = "subtema"
+
 
 # WHERE COLUMN
 USER_WHERE_COLUMN = ["usuario"]
