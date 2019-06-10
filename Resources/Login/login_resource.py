@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse
+from Resources.default_resource import DefaultResource
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from Utils.utils import set_params
 import Resources.Login.params_constants as pc
@@ -6,18 +6,20 @@ import Utils.messages_constants as mc
 from .login_query import LoginQuery
 
 
-class Login(Resource):
+class Login(DefaultResource):
 
     def __init__(self):
         self.query = LoginQuery()
+        super().__init__()
 
     def post(self):
         try:
+
             # Parse the arguments
-            parser = reqparse.RequestParser()
-            set_params(parser, pc.PARAMS,
-                       pc.PARAMS_TYPE, pc.PARAMS_HELP)
-            args = parser.parse_args()
+            self.set_params(pc.PARAMS,
+                            pc.PARAMS_TYPE, pc.PARAMS_HELP)
+
+            args = self.get_params(pc.PARAMS)
 
             username = args['username']
             password = args['password']

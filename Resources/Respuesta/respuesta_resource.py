@@ -1,25 +1,23 @@
-from flask_restful import Resource, reqparse
+from Resources.default_resource import DefaultResource
 import Resources.Respuesta.params_constants as pc
 from .respuesta_query import RespuestaQuery
 from Utils.utils import set_params, get_params
 
 
-class Respuesta(Resource):
+class Respuesta(DefaultResource):
 
     def __init__(self):
         self.query = RespuestaQuery()
+        super().__init__()
 
     def post(self):
         try:
             # Parse the arguments
-            parser = reqparse.RequestParser()
-            set_params(parser, pc.PARAMS,
-                       pc.PARAMS_TYPE, pc.PARAMS_HELP)
-            args = parser.parse_args()
+            self.set_params(pc.PARAMS,
+                            pc.PARAMS_TYPE, pc.PARAMS_HELP)
+            args = self.get_params(pc.PARAMS)
 
-            params = get_params(args, pc.PARAMS)
-
-            response = self.query.check_answer(params[0], params[1])
+            response = self.query.check_answer(args[0], args[1], args[2])
 
             return response, 200
 

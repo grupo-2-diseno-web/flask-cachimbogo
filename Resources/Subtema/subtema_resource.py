@@ -1,12 +1,13 @@
-from flask_restful import Resource
+from Resources.default_resource import DefaultResource
 from .subtema_query import SubtemaQuery
 import Utils.messages_constants as mc
 
 
-class Subtema(Resource):
+class Subtema(DefaultResource):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.query = SubtemaQuery()
+        super().__init__()
 
     def get(self, id_tema=None):
         try:

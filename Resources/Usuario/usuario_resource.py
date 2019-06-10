@@ -15,12 +15,15 @@ class Usuario(DefaultResource):
         try:
             # Parse the arguments
             self.set_params(pc.PARAMS,
-                       pc.PARAMS_TYPE, pc.PARAMS_HELP)
+                            pc.PARAMS_TYPE, pc.PARAMS_HELP)
 
-            params = self.get_params(pc.PARAMS)
+            args = self.get_params(pc.PARAMS)
 
-            if self.query.insert_usuario(params):
+            response = self.query.insert_usuario(args)
+            if response is 201:
                 return {'message': mc.INSERT_SUCCESS}, 201
+            elif response is 202:
+                return {'message': mc.USER_ALREADY_EXISTS}, 202
             else:
                 return {'error': mc.DB_ERROR}, 500
 

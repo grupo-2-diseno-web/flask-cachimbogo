@@ -1,9 +1,13 @@
 from flask_restful import Resource, reqparse
 
+
 class DefaultResource(Resource):
 
     def __init__(self):
         self.parser = None
+
+    def get_paser(self):
+        return reqparse.RequestParser()
 
     def set_params(self, params_name, types, helps):
         self.parser = reqparse.RequestParser()
@@ -12,10 +16,10 @@ class DefaultResource(Resource):
         while length > i:
             if types[i] is "int":
                 self.parser.add_argument(params_name[i], type=int,
-                                    help=helps[i])
+                                         help=helps[i])
             if types[i] is "string":
                 self.parser.add_argument(params_name[i], type=str,
-                                    help=helps[i])
+                                         help=helps[i])
             i += 1
 
     def get_params(self, params_name):

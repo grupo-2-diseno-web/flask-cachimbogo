@@ -1,14 +1,15 @@
-from flask_restful import Resource, reqparse
+from Resources.default_resource import DefaultResource
 from .preguntas_query import PreguntaQuery
 import Utils.messages_constants as mc
 import Resources.Pregunta.params_constants as pc
 from Utils.utils import set_params, get_params
 
 
-class Pregunta(Resource):
+class Pregunta(DefaultResource):
 
     def __init__(self):
         self.query = PreguntaQuery()
+        super().__init__()
 
     def get(self, id=None, completado=None, tipo=None):
         try:
@@ -28,14 +29,12 @@ class Pregunta(Resource):
     def post(self):
         try:
             # Parse the arguments
-            parser = reqparse.RequestParser()
-            set_params(parser, pc.PARAMS,
-                       pc.PARAMS_TYPE, pc.PARAMS_HELP)
-            args = parser.parse_args()
+            self.set_params(pc.PARAMS,
+                            pc.PARAMS_TYPE, pc.PARAMS_HELP)
 
-            params = get_params(args, pc.PARAMS)
+            args = self.get_params(pc.PARAMS)
 
-            if self.query.insert_pregunta(params):
+            if self.query.insert_pregunta(args):
                 return {'message': mc.INSERT_SUCCESS}, 201
             else:
                 return {'error': mc.DB_ERROR}, 500

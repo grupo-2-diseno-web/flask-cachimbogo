@@ -1,12 +1,13 @@
-from flask_restful import Resource
+from Resources.default_resource import DefaultResource
 from .tema_query import TemaQuery
 import Utils.messages_constants as mc
 
 
-class Tema(Resource):
+class Tema(DefaultResource):
 
     def __init__(self):
         self.query = TemaQuery()
+        super().__init__()
 
     def get(self, id_asignatura=None):
         try:

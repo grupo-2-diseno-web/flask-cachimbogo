@@ -11,20 +11,27 @@ class UsuarioQuery(Query):
         usuario[1] = Crypto.get_crypto(usuario[1])
         try:
             with self.get_cursor() as cursor:
-                query = self.get_insert_query(pc.PARAMS, qc.USER_TABLE)
-                cursor.execute(query, usuario)
-                id_usuario = cursor.lastrowid
-                cursor.execute(qc.USUARIO_ASIGNATURA_ALL, [id_usuario])
-                cursor.connection.commit()
-                return True
+                if self.check_user(usuario[0], usuario[4]):
+                    query = self.get_insert_query(pc.PARAMS, qc.USER_TABLE)
+                    cursor.execute(query, usuario)
+                    id_usuario = cursor.lastrowid
+                    cursor.execute(qc.USUARIO_ASIGNATURA_ALL, [id_usuario])
+                    cursor.connection.commit()
+                    return 201
+                else:
+                    return 202
         except Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
             cursor.connection.rollback()
-            return False
+            return 500
         finally:
             cursor.close()
 
+    def check_user(self, usuario, correo):
+        check = self.execute_select(
+            qc.USERID_COLUMN, qc.USER_TABLE, qc.CHECK_WHERE_COLUMN, [usuario, correo])
+        return len(check) is not 0
 
-def check_user(username, email):
-    # select verificando usuario y correo
-    pass
+    def add_coins(self, id_usuario, monedas):
+        return self.execute_update(qc.COINS_COLUMN, qc.USER_TABLE, [
+            monedas], qc.USERID_WHERE_COLUMN, [id_usuario])

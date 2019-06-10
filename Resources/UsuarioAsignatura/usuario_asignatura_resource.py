@@ -1,15 +1,15 @@
-from flask_restful import Resource, reqparse
+from Resources.default_resource import DefaultResource
 from .usuario_asignatura_query import UsuarioAsignaturaQuery
 
 
-class UsuarioAsignatura(Resource):
+class UsuarioAsignatura(DefaultResource):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.query = UsuarioAsignaturaQuery()
 
     def get(self):
         try:
-            parser = reqparse.RequestParser()
+            parser = self.get_paser()
             parser.add_argument('id_usuario', type=int, location='args')
             args = parser.parse_args()
             data = self.query.select_usuario_asignatura(args['id_usuario'])
