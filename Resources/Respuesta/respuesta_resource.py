@@ -17,9 +17,9 @@ class Respuesta(DefaultResource):
                             pc.PARAMS_TYPE, pc.PARAMS_HELP)
             args = self.get_params(pc.PARAMS)
 
-            response = self.query.check_answer(args[0], args[1], args[2])
+            response = self.query.check_answer(args)
 
-            return response, 200
+            return response
 
         except Exception as e:
             return {'error': str(e)}, 500

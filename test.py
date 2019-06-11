@@ -1,2 +1,3 @@
-environ = {}
-print(environ['env'] is None)
+a = [1, 2]
+b = [3, 4]
+print(a[0:1] + b[0:2])
