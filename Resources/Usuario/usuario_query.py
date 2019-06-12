@@ -1,4 +1,4 @@
-import Resources.Usuario.querys_params as qc
+import Resources.Usuario.querys_constants as qc
 import Resources.Usuario.params_constants as pc
 from Utils.crypto import Crypto
 from Querys.query import Query
