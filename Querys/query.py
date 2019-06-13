@@ -16,7 +16,6 @@ class Query(object):
                 else:
                     query = self.get_select_query(
                         columns, table, where_columns)
-                    print(query)
                     cursor.execute(query, where_values)
                 data = cursor.fetchall()
                 return data
