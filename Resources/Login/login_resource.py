@@ -21,8 +21,8 @@ class Login(DefaultResource):
 
             args = self.get_params(pc.PARAMS)
 
-            username = args['username']
-            password = args['password']
+            username = args[0]
+            password = args[1]
 
             if username and password:
                 if self.query.user_exists(username) and self.query.is_password(username, password):

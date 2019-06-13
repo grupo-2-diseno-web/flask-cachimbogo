@@ -2,10 +2,12 @@
 USUARIO_SUBTEMA_COLUMNS = ["id_usuario", "id_subtema", "completado"]
 USUARIO_TEMA_COLUMNS = ["id_usuario", "id_tema", "porcentaje"]
 PORCENTAJE_COLUMN = ["porcentaje"]
+USUARIO_ASIGNATURA = ["id_usuario", "id_asignatura", "porcentaje"]
 
 # TABLES
 USUARIO_SUBTEMA_TABLE = "usuario_subtema"
 USUARIO_TEMA_TABLE = "usuario_tema"
+USUARIO_ASIGNATURA_TABLE = "usuario_asignatura"
 
 # WHERE COLUMN
 PREGUNTAID_WHERE_COLUMN = ["id_pregunta"]
