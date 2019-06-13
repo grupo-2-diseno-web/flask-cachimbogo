@@ -23,6 +23,8 @@ class UsuarioSubtemaQuery(Query):
                     count = self.get_count(cursor, tipo="tema", id=id_tema)
                     id_asignatura = count["id_asignatura"]
                     total_tema = count["numero"]
+                    self.set_porcentaje_asignatura(
+                        cursor, id_asignatura=id_asignatura, id_usuario=usuario_subtema[0], total=total_tema, porcentaje=porcentaje)
                     cursor.connection.commit()
                     return {'mensaje': mc.PORCENTAJE_UPDATED}, 201
                 else:
@@ -91,3 +93,21 @@ class UsuarioSubtemaQuery(Query):
             cursor.execute(
                 query, [int(porcentaje), kwargs["id_usuario"], kwargs["id_tema"]])
             return porcentaje
+
+    def set_porcentaje_asignatura(self, cursor, **kwargs):
+        count = self.exists(
+            cursor, tipo="asignatura", id=kwargs["id_asignatura"], id_usuario=kwargs["id_usuario"])
+        if count["numero"] is 0:
+            porcentaje = (1 / kwargs["total"]) * 100
+            query = self.get_insert_query(
+                qc.USUARIO_ASIGNATURA_COLUMNS, qc.USUARIO_ASIGNATURA_TABLE)
+            cursor.execute(
+                query, [kwargs["id_usuario"], kwargs["id_asignatura"], int(porcentaje)])
+        elif count["numero"] is not 0 and kwargs["porcentaje"] is 100:
+            count = self.get_count(
+                cursor, tipo="tema", id=kwargs["id_asignatura"], id_usuario=kwargs["id_usuario"])
+            porcentaje = (count["numero"] / kwargs["total"]) * 100
+            query = self.get_update_query(
+                qc.PORCENTAJE_COLUMN, qc.USUARIO_ASIGNATURA_TABLE, qc.USUARIO_ASIGNATURA_WHERE_COLUMN)
+            cursor.execute(
+                query, [int(porcentaje), kwargs["id_usuario"], kwargs["id_asignatura"]])

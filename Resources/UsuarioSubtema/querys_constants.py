@@ -2,7 +2,7 @@
 USUARIO_SUBTEMA_COLUMNS = ["id_usuario", "id_subtema", "completado"]
 USUARIO_TEMA_COLUMNS = ["id_usuario", "id_tema", "porcentaje"]
 PORCENTAJE_COLUMN = ["porcentaje"]
-USUARIO_ASIGNATURA = ["id_usuario", "id_asignatura", "porcentaje"]
+USUARIO_ASIGNATURA_COLUMNS = ["id_usuario", "id_asignatura", "porcentaje"]
 
 # TABLES
 USUARIO_SUBTEMA_TABLE = "usuario_subtema"
@@ -13,6 +13,7 @@ USUARIO_ASIGNATURA_TABLE = "usuario_asignatura"
 PREGUNTAID_WHERE_COLUMN = ["id_pregunta"]
 USERID_WHERE_COLUMN = ["id_usuario"]
 USUARIO_TEMA_WHERE_COLUMN = ["id_usuario", "id_tema"]
+USUARIO_ASIGNATURA_WHERE_COLUMN = ["id_usuario", "id_asignatura"]
 
 # COUNTS
 SUBTEMA_COUNT = "SELECT id_tema AS id, COUNT(*) AS numero FROM subtema WHERE id_tema = (SELECT id_tema FROM subtema WHERE id_subtema = %s);"

@@ -13,7 +13,7 @@ class RespuestaQuery(Query):
                 if check[0]:
                     # Agrega 4 monedas
                     query = self.get_update_query(
-                        qc.COINS_COLUMN, qc.USER_TABLE, qc.USERID_WHERE)
+                        qc.COINS_COLUMN, qc.USER_TABLE, qc.USERID_WHERE_COLUMN)
                     cursor.execute(query, [4, respuesta[0]])
                     # insertar respuesta
                 query = self.get_insert_query(
