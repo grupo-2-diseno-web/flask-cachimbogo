@@ -2,4 +2,4 @@
 user = root
 password = asd123
 bd = cachimbogo
-host = 35.232.238.17
+host = localhost

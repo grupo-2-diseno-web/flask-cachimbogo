@@ -5,4 +5,4 @@ TEMA_COLUMN = ["id_tema", "nombre"]
 TEMA_TABLE = "tema"
 
 # WHERE COLUMN
-PREGUNTAID_WHERE = ["id_pregunta"]
+ASIGNATURAID_WHERE = ["id_asignatura"]
