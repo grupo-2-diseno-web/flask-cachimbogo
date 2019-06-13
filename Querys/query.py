@@ -16,6 +16,7 @@ class Query(object):
                 else:
                     query = self.get_select_query(
                         columns, table, where_columns)
+                    print(query)
                     cursor.execute(query, where_values)
                 data = cursor.fetchall()
                 return data
@@ -108,7 +109,7 @@ class Query(object):
             i = 0
             query += " WHERE "
             while length - 1 > i:
-                query += where_columns[i] + " = %s, "
+                query += where_columns[i] + " = %s and "
                 i += 1
             query += where_columns[i] + " = %s;"
         return query
@@ -146,7 +147,7 @@ class Query(object):
             i = 0
             query += " WHERE "
             while length - 1 > i:
-                query += where_columns[i] + " = %s, "
+                query += where_columns[i] + " = %s and "
                 i += 1
             query += where_columns[i] + " = %s;"
         return query
@@ -161,7 +162,7 @@ class Query(object):
             i = 0
             query += " WHERE "
             while length - 1 > i:
-                query += where_columns[i] + " = %s, "
+                query += where_columns[i] + " = %s and "
                 i += 1
             query += where_columns[i] + " = %s;"
         return query

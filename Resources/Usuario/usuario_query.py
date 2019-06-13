@@ -30,7 +30,7 @@ class UsuarioQuery(Query):
     def check_user(self, usuario, correo):
         check = self.execute_select(
             qc.USERID_COLUMN, qc.USER_TABLE, qc.CHECK_WHERE_COLUMN, [usuario, correo])
-        return len(check) is not 0
+        return len(check) is 0
 
     def add_coins(self, id_usuario, monedas):
         return self.execute_update(qc.COINS_COLUMN, qc.USER_TABLE, [
