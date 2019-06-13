@@ -16,7 +16,7 @@ class RespuestaQuery(Query):
                         qc.COINS_COLUMN, qc.USER_TABLE, qc.USERID_WHERE_COLUMN)
                     cursor.execute(query, [4, respuesta[0]])
                     # insertar respuesta
-                if self.exist(cursor, respuesta):
+                if not self.exist(cursor, respuesta):
                     query = self.get_insert_query(
                         qc.RESPUESTA_COLUMNS, qc.RESPUESTA_TABLE)
                     cursor.execute(query, respuesta[0:2] + check[0:1])
