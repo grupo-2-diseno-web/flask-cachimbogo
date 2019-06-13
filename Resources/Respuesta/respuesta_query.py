@@ -20,6 +20,10 @@ class RespuestaQuery(Query):
                     query = self.get_insert_query(
                         qc.RESPUESTA_COLUMNS, qc.RESPUESTA_TABLE)
                     cursor.execute(query, respuesta[0:2] + check[0:1])
+                else:
+                    query = self.get_update_query(
+                        qc.CORRECTA_COLUMN, qc.RESPUESTA_TABLE, qc.RESPUESTA_WHERE_COLUMN)
+                    cursor.execute(query, check[0:1] + respuesta[0:2])
                 cursor.connection.commit()
                 return {'correcta': check[0], 'informacion': check[1]}, 200
         except Error as e:
