@@ -16,12 +16,12 @@ class UsuarioSubtemaQuery(Query):
                 if exist:
                     count = self.get_count(
                         cursor, tipo="subtema", id=usuario_subtema[1])
-                    id_tema = count["id_tema"]
+                    id_tema = count["id"]
                     total_subtema = count["numero"]
                     porcentaje = self.set_porcentaje_tema(
                         cursor, id_tema=id_tema, id_usuario=usuario_subtema[0], total=total_subtema)
                     count = self.get_count(cursor, tipo="tema", id=id_tema)
-                    id_asignatura = count["id_asignatura"]
+                    id_asignatura = count["id"]
                     total_tema = count["numero"]
                     self.set_porcentaje_asignatura(
                         cursor, id_asignatura=id_asignatura, id_usuario=usuario_subtema[0], total=total_tema, porcentaje=porcentaje)

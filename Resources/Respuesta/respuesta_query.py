@@ -16,9 +16,10 @@ class RespuestaQuery(Query):
                         qc.COINS_COLUMN, qc.USER_TABLE, qc.USERID_WHERE_COLUMN)
                     cursor.execute(query, [4, respuesta[0]])
                     # insertar respuesta
-                query = self.get_insert_query(
-                    qc.RESPUESTA_COLUMNS, qc.RESPUESTA_TABLE)
-                cursor.execute(query, respuesta[0:2] + check[0:1])
+                if self.exist(cursor, respuesta):
+                    query = self.get_insert_query(
+                        qc.RESPUESTA_COLUMNS, qc.RESPUESTA_TABLE)
+                    cursor.execute(query, respuesta[0:2] + check[0:1])
                 cursor.connection.commit()
                 return {'correcta': check[0], 'informacion': check[1]}, 200
         except Error as e:
@@ -35,3 +36,8 @@ class RespuestaQuery(Query):
         correcta = correcta_num == correct_num_selected[0]["correcta_num"]
         informacion = correct_num_selected[0]["informacion"]
         return [correcta, informacion]
+
+    def exist(self, cursor, respuesta):
+        cursor.execute(qc.RESPUESTA_COUNT, respuesta[0:2])
+        exist = cursor.fetchall()[0]
+        return exist["numero"] is not 0

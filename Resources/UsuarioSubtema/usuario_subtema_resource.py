@@ -16,7 +16,7 @@ class UsuarioSubtema(DefaultResource):
                             pc.PARAMS_TYPE, pc.PARAMS_HELP)
             args = self.get_params(pc.PARAMS)
 
-            response = self.query.check_answer(args)
+            response = self.query.update_porcentage(args)
 
             return response
 

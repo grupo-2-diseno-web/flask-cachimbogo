@@ -11,3 +11,6 @@ RESPUESTA_TABLE = "respuesta"
 # WHERE COLUMN
 PREGUNTAID_WHERE_COLUMN = ["id_pregunta"]
 USERID_WHERE_COLUMN = ["id_usuario"]
+
+# COUNT
+RESPUESTA_COUNT = "SELECT count(*) AS numero FROM respuesta WHERE id_usuario = %s AND id_pregunta = %s"
