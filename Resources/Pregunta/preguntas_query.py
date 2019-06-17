@@ -35,7 +35,7 @@ class PreguntaQuery(Query):
                                    qc.PREGUNTA_SUBTEMA_WHERE, (id_subtema,))
 
     def get_pregunta_populate(self, id_pregunta):
-        return self.execute_join(qc.PREGUNTA_POPULATE, (id_pregunta,))
+        return self.execute_custom_query(qc.PREGUNTA_POPULATE, (id_pregunta,))
 
     def insert_pregunta(self, values):
         return self.execute_insert(pc.PARAMS, qc.PREGUNTA_TABLE, values)

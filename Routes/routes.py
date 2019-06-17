@@ -4,7 +4,7 @@ from Resources.Pregunta.pregunta_resource import Pregunta
 from Resources.Usuario.usuario_resource import Usuario
 from Resources.Respuesta.respuesta_resource import Respuesta
 from Resources.UsuarioAsignatura.usuario_asignatura_resource import UsuarioAsignatura
-from Resources.Tema.tema_resource import Tema
+from Resources.UsuarioTema.usuario_tema_resource import UsuarioTema
 from Resources.Subtema.subtema_resource import Subtema
 from Resources.UsuarioSubtema.usuario_subtema_resource import UsuarioSubtema
 
@@ -21,6 +21,7 @@ class ApiRest(object):
         self.api.add_resource(Usuario, '/usuario')
         self.api.add_resource(Respuesta, '/respuesta')
         self.api.add_resource(UsuarioAsignatura, '/usuarioAsignatura')
-        self.api.add_resource(Tema, '/temaAsignatura/<int:id_asignatura>')
+        self.api.add_resource(
+            UsuarioTema, '/temaAsignatura')
         self.api.add_resource(Subtema, '/subtemaTema/<int:id_tema>')
         self.api.add_resource(UsuarioSubtema, '/usuarioSubtema')

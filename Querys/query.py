@@ -77,7 +77,7 @@ class Query(object):
         finally:
             cursor.close()
 
-    def execute_join(self, join_query, where_values=None):
+    def execute_custom_query(self, join_query, where_values=None):
         try:
             with self.get_cursor() as cursor:
                 if where_values is None:
