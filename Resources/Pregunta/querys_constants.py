@@ -1,7 +1,6 @@
 # COLUMNS
 PREGUNTAID_COLUMN = ["id_pregunta"]
-PREGUNTA_COLUMN = ["id_pregunta", "enunciado", "clave1", "clave2", "clave3", "clave4",
-                   "clave5", "estado", "informacion", "id_dificultad", "correcta_num"]
+PREGUNTA_COLUMN = ["id_pregunta", "enunciado", "estado", "id_dificultad"]
 
 # TABLES
 PREGUNTA_TABLE = "pregunta"

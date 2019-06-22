@@ -12,7 +12,7 @@ class Tema(DefaultResource):
     def get(self, id_asignatura=None):
         try:
             if id_asignatura is not None:
-                data = self.query.select_tema(id_asignatura)
+                data = self.query.get_temas(id_asignatura)
                 return {'data': data}, 200
             else:
                 return {'error': mc.RESOURCE_NOT_FOUND}, 400

@@ -1,5 +1,5 @@
 from Resources.default_resource import DefaultResource
-from .preguntas_query import PreguntaQuery
+from .pregunta_query import PreguntaQuery
 import Utils.messages_constants as mc
 import Resources.Pregunta.params_constants as pc
 from Utils.utils import set_params, get_params

@@ -7,6 +7,7 @@ from Resources.UsuarioAsignatura.usuario_asignatura_resource import UsuarioAsign
 from Resources.UsuarioTema.usuario_tema_resource import UsuarioTema
 from Resources.Subtema.subtema_resource import Subtema
 from Resources.UsuarioSubtema.usuario_subtema_resource import UsuarioSubtema
+from Resources.Asignatura.asignatura_resource import Asignatura
 
 
 class ApiRest(object):
@@ -25,3 +26,4 @@ class ApiRest(object):
             UsuarioTema, '/temaAsignatura')
         self.api.add_resource(Subtema, '/subtemaTema/<int:id_tema>')
         self.api.add_resource(UsuarioSubtema, '/usuarioSubtema')
+        self.api.add_resource(Asignatura, '/asignatura')

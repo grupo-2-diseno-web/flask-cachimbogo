@@ -12,7 +12,7 @@ class Subtema(DefaultResource):
     def get(self, id_tema=None):
         try:
             if id_tema is not None:
-                data = self.query.select_subtema(id_tema)
+                data = self.query.get_subtemas(id_tema)
                 return {'data': data}, 200
             else:
                 return {'error': mc.RESOURCE_NOT_FOUND}, 400
