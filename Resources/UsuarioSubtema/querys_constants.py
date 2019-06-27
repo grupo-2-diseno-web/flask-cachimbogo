@@ -16,8 +16,8 @@ USUARIO_TEMA_WHERE_COLUMN = ["id_usuario", "id_tema"]
 USUARIO_ASIGNATURA_WHERE_COLUMN = ["id_usuario", "id_asignatura"]
 
 # COUNTS
-SUBTEMA_COUNT = "SELECT id_tema AS id, COUNT(*) AS numero FROM subtema WHERE id_tema = (SELECT id_tema FROM subtema WHERE id_subtema = %s);"
-TEMA_COUNT = "SELECT id_asignatura AS id, COUNT(*) AS numero FROM tema WHERE id_asignatura = (SELECT id_asignatura FROM tema WHERE id_tema = %s);"
+SUBTEMA_COUNT = "SELECT ANY_VALUE(id_tema) AS id, COUNT(*) AS numero FROM subtema WHERE id_tema = (SELECT id_tema FROM subtema WHERE id_subtema = %s);"
+TEMA_COUNT = "SELECT ANY_VALUE(id_asignatura) AS id, COUNT(*) AS numero FROM tema WHERE id_asignatura = (SELECT id_asignatura FROM tema WHERE id_tema = %s);"
 USUARIO_SUBTEMA_COUNT = "SELECT count(*) AS numero FROM usuario_subtema WHERE id_subtema in (SELECT id_subtema FROM subtema WHERE id_tema = %s) AND id_usuario = %s AND completado = 1;"
 USUARIO_TEMA_COUNT = "SELECT count(*) AS numero FROM usuario_tema WHERE id_tema in (SELECT id_tema from tema where id_asignatura = %s) and id_usuario = %s and porcentaje = 100;"
 
