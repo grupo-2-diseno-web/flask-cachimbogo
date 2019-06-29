@@ -2,7 +2,7 @@
 RESPUESTA_COLUMN = ["correcta_num", "informacion"]
 COINS_COLUMN = ["monedas"]
 RESPUESTA_COLUMNS = ["id_usuario", "id_pregunta", "acertada"]
-CORRECTA_COLUMN = ["correcta_num"]
+ACERTADA_COLUMN = ["acertada"]
 
 # TABLES
 PREGUNTA_TABLE = "pregunta"

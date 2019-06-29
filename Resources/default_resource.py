@@ -5,6 +5,7 @@ class DefaultResource(Resource):
 
     def __init__(self):
         self.parser = None
+        self.args = None
 
     def get_paser(self):
         return reqparse.RequestParser()
@@ -23,5 +24,11 @@ class DefaultResource(Resource):
             i += 1
 
     def get_params(self, params_name):
-        args = self.parser.parse_args()
-        return [args[param_name] for param_name in params_name]
+        return [self.args[param_name] for param_name in params_name]
+
+    def check_params(self):
+        self.args = self.parser.parse_args()
+        for arg in self.args.values():
+            if arg is None:
+                return False
+        return True

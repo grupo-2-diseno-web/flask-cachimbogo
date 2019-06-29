@@ -31,13 +31,15 @@ class Pregunta(DefaultResource):
             # Parse the arguments
             self.set_params(pc.PARAMS,
                             pc.PARAMS_TYPE, pc.PARAMS_HELP)
+            if self.check_params():
+                args = self.get_params(pc.PARAMS)
 
-            args = self.get_params(pc.PARAMS)
-
-            if self.query.insert_pregunta(args):
-                return {'message': mc.INSERT_SUCCESS}, 201
+                if self.query.insert_pregunta(args):
+                    return {'message': mc.INSERT_SUCCESS}, 201
+                else:
+                    return {'error': mc.DB_ERROR}, 500
             else:
-                return {'error': mc.DB_ERROR}, 500
+                return {'error': mc.PARAM_MISSING}, 400
 
         except Exception as e:
             return {'error': str(e)}, 500

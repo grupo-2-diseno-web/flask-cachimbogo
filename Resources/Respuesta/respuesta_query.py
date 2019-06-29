@@ -12,9 +12,7 @@ class RespuestaQuery(Query):
                 check = self.__is_answer(respuesta[1], respuesta[2])
                 if check[0]:
                     # Agrega 4 monedas
-                    query = self.get_update_query(
-                        qc.COINS_COLUMN, qc.USER_TABLE, qc.USERID_WHERE_COLUMN)
-                    cursor.execute(query, [4, respuesta[0]])
+                    self.add_coins(cursor, respuesta[0])
                     # insertar respuesta
                 if not self.exist(cursor, respuesta):
                     query = self.get_insert_query(
@@ -22,13 +20,13 @@ class RespuestaQuery(Query):
                     cursor.execute(query, respuesta[0:2] + check[0:1])
                 else:
                     query = self.get_update_query(
-                        qc.CORRECTA_COLUMN, qc.RESPUESTA_TABLE, qc.RESPUESTA_WHERE_COLUMN)
+                        qc.ACERTADA_COLUMN, qc.RESPUESTA_TABLE, qc.RESPUESTA_WHERE_COLUMN)
                     cursor.execute(query, check[0:1] + respuesta[0:2])
-                cursor.connection.commit()
+                self.get_connection().commit()
                 return {'correcta': check[0], 'informacion': check[1]}, 200
         except Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
-            cursor.connection.rollback()
+            self.get_connection().rollback()
             return {'error': mc.DB_ERROR}, 500
         finally:
             cursor.close()
@@ -45,3 +43,11 @@ class RespuestaQuery(Query):
         cursor.execute(qc.RESPUESTA_COUNT, respuesta[0:2])
         exist = cursor.fetchall()[0]
         return exist["numero"] is not 0
+
+    def add_coins(self, cursor, id_usuario):
+        coins = self.execute_select(
+            qc.COINS_COLUMN, qc.USER_TABLE, qc.USERID_WHERE_COLUMN, [id_usuario])
+        coins = coins[0]["monedas"]
+        query = self.get_update_query(
+            qc.COINS_COLUMN, qc.USER_TABLE, qc.USERID_WHERE_COLUMN)
+        cursor.execute(query, [coins+4, id_usuario])

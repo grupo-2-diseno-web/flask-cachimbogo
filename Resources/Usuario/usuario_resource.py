@@ -17,15 +17,18 @@ class Usuario(DefaultResource):
             self.set_params(pc.PARAMS,
                             pc.PARAMS_TYPE, pc.PARAMS_HELP)
 
-            args = self.get_params(pc.PARAMS)
+            if self.check_params():
+                args = self.get_params(pc.PARAMS)
 
-            response = self.query.insert_usuario(args)
-            if response is 201:
-                return {'message': mc.INSERT_SUCCESS}, 201
-            elif response is 202:
-                return {'message': mc.USER_ALREADY_EXISTS}, 202
+                response = self.query.insert_usuario(args)
+                if response is 201:
+                    return {'message': mc.INSERT_SUCCESS}, 201
+                elif response is 202:
+                    return {'message': mc.USER_ALREADY_EXISTS}, 202
+                else:
+                    return {'error': mc.DB_ERROR}, 500
             else:
-                return {'error': mc.DB_ERROR}, 500
+                return {'error': mc.PARAM_MISSING}, 400
 
         except Exception as e:
             return {'error': str(e)}, 500

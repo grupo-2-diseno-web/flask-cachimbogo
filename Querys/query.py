@@ -7,6 +7,9 @@ class Query(object):
     def get_cursor(self):
         return Connection.mysql.get_db().cursor()
 
+    def get_connection(self):
+        return Connection.mysql.get_db()
+
     def execute_select(self, columns, table, where_columns=None, where_values=None):
         try:
             with self.get_cursor() as cursor:
@@ -31,11 +34,11 @@ class Query(object):
                 query = self.get_insert_query(columns, table)
                 cursor.execute(query, values)
                 # Insertar commit
-                cursor.connection.commit()
+                self.get_connection().commit()
                 return True
         except Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
-            cursor.connection.rollback()
+            self.get_connection().rollback()
             return False
         finally:
             cursor.close()
@@ -50,11 +53,11 @@ class Query(object):
                     query = self.get_update_query(
                         columns, table, where_columns)
                     cursor.execute(query, values + where_values)
-                cursor.connection.commit()
+                self.get_connection().commit()
                 return True
         except Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
-            cursor.connection.rollback()
+            self.get_connection().rollback()
             return False
         finally:
             cursor.close()
@@ -68,11 +71,11 @@ class Query(object):
                 else:
                     query = self.get_delete_query(table, where_columns)
                     cursor.execute(query, where_values)
-                cursor.connection.commit()
+                self.get_connection().commit()
                 return True
         except Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
-            cursor.connection.rollback()
+            self.get_connection().rollback()
             return False
         finally:
             cursor.close()
