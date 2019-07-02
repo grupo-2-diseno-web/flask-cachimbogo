@@ -1,17 +1,11 @@
-from Resources.default_resource import DefaultResource
-from .asignatura_query import AsignaturaQuery
-import Utils.messages_constants as mc
+from flask_restful import Resource
+from models.asignatura import AsignaturaModel
+from schemas.asignatura import AsignaturaSchema
 
+asignatura_schema = AsignaturaSchema()
+asignatura_list_schema = AsignaturaSchema(many=True)
 
-class Asignatura(DefaultResource):
-
-    def __init__(self):
-        self.query = AsignaturaQuery()
-        super().__init__()
-
+class Asignatura(Resource):
     def get(self):
-        try:
-            data = self.query.get_asignaturas()
-            return {'data': data}, 200
-        except Exception as e:
-            return {'error': str(e)}, 500
+        asignaturas = AsignaturaModel.todas_las_asignaturas()
+        return {'data': asignatura_list_schema.dump(asignaturas)}, 200

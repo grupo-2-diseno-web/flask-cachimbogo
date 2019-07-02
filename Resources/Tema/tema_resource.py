@@ -1,19 +1,16 @@
-from Resources.default_resource import DefaultResource
-from .tema_query import TemaQuery
-import Utils.messages_constants as mc
+from flask_restful import Resource
+from models.tema import TemaModel
+from schemas.tema import TemaSchema
 
+tema_schema = TemaSchema()
+temas_schema = TemaSchema(many=True)
 
-class Tema(DefaultResource):
-
-    def __init__(self):
-        self.query = TemaQuery()
-        super().__init__()
-
+class Tema(Resource):
     def get(self, id_asignatura=None):
         try:
             if id_asignatura is not None:
-                data = self.query.get_temas(id_asignatura)
-                return {'data': data}, 200
+                temas = TemaModel.todas_los_temas(id_asignatura)
+                return {'data': temas_schema.dump(temas)}, 200
             else:
                 return {'error': mc.RESOURCE_NOT_FOUND}, 400
         except Exception as e:
