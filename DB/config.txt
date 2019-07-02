@@ -3,3 +3,4 @@ user = root
 password = asd123
 bd = cachimbogo
 host = cgo-db
+

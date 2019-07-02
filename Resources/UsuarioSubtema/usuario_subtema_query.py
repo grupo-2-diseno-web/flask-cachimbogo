@@ -13,7 +13,7 @@ class UsuarioSubtemaQuery(Query):
         try:
             with self.get_cursor() as cursor:
                 exist = self.insert_usuario_subtema(cursor, usuario_subtema)
-                if exist:
+                if not exist:
                     count = self.get_count(
                         cursor, tipo="subtema", id=usuario_subtema[1])
                     id_tema = count["id"]
@@ -25,13 +25,13 @@ class UsuarioSubtemaQuery(Query):
                     total_tema = count["numero"]
                     self.set_porcentaje_asignatura(
                         cursor, id_asignatura=id_asignatura, id_usuario=usuario_subtema[0], total=total_tema, porcentaje=porcentaje)
-                    cursor.connection.commit()
+                    self.get_connection().commit()
                     return {'mensaje': mc.PORCENTAJE_UPDATED}, 201
                 else:
                     return {'mensaje': mc.OK}, 200
         except Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
-            cursor.connection.rollback()
+            self.get_connection().rollback()
             return {'error': mc.DB_ERROR}, 500
         finally:
             cursor.close()
@@ -43,9 +43,9 @@ class UsuarioSubtemaQuery(Query):
             query = self.get_insert_query(
                 qc.USUARIO_SUBTEMA_COLUMNS, qc.USUARIO_SUBTEMA_TABLE)
             cursor.execute(query, usuario_subtema)
-            return True
-        else:
             return False
+        else:
+            return True
 
     def exists(self, cursor, **kwargs):
         if kwargs["tipo"] is "subtema":
@@ -103,7 +103,7 @@ class UsuarioSubtemaQuery(Query):
                 qc.USUARIO_ASIGNATURA_COLUMNS, qc.USUARIO_ASIGNATURA_TABLE)
             cursor.execute(
                 query, [kwargs["id_usuario"], kwargs["id_asignatura"], int(porcentaje)])
-        elif count["numero"] is not 0 and kwargs["porcentaje"] is 100:
+        elif count["numero"] is not 0 and kwargs["porcentaje"] == 100.0:
             count = self.get_count(
                 cursor, tipo="tema", id=kwargs["id_asignatura"], id_usuario=kwargs["id_usuario"])
             porcentaje = (count["numero"] / kwargs["total"]) * 100
