@@ -1,34 +1,40 @@
-from Resources.default_resource import DefaultResource
+from flask_restful import Resource
 import Utils.messages_constants as mc
-import Resources.Usuario.params_constants as pc
-from Utils.utils import set_params, get_params
-from .usuario_query import UsuarioQuery
+from Utils.crypto import Crypto
+from flask import request
+from flask_jwt_extended import create_access_token, create_refresh_token
+from models.usuario import UsuarioModel
+from schemas.usuario import UsuarioSchema
+from schemas.login import LoginSchema
+
+usuario_schema = UsuarioSchema()
+login_schema = LoginSchema()
+
+class Usuario(Resource):
+    @classmethod
+    def post(cls):
+        usuario_json = request.get_json()
+        usuario = usuario_schema.load(usuario_json)
+        usuario.password = Crypto.get_crypto(usuario.password)
+
+        if UsuarioModel.existe_usuario(usuario.usuario, usuario.correo):
+            return {'message': mc.USER_ALREADY_EXISTS}, 400
+        usuario.guardar_en_la_bd()
+        return usuario_schema.dump(usuario), 201
 
 
-class Usuario(DefaultResource):
-
-    def __init__(self):
-        self.query = UsuarioQuery()
-        super().__init__()
-
-    def post(self):
-        try:
-            # Parse the arguments
-            self.set_params(pc.PARAMS,
-                            pc.PARAMS_TYPE, pc.PARAMS_HELP)
-
-            if self.check_params():
-                args = self.get_params(pc.PARAMS)
-
-                response = self.query.insert_usuario(args)
-                if response is 201:
-                    return {'message': mc.INSERT_SUCCESS}, 201
-                elif response is 202:
-                    return {'message': mc.USER_ALREADY_EXISTS}, 202
-                else:
-                    return {'error': mc.DB_ERROR}, 500
-            else:
-                return {'error': mc.PARAM_MISSING}, 400
-
-        except Exception as e:
-            return {'error': str(e)}, 500
+class UsuarioLogin(Resource):
+    @classmethod
+    def post(cls):
+        usuario_json = request.get_json()
+        usuario_data = login_schema.load(usuario_json)
+        usuario = UsuarioModel.existe_usuario(usuario_data["usuario"], "")
+        
+        if usuario and Crypto.check_crypto(usuario.password, usuario_data["password"]):
+            access_token = create_access_token(identity=usuario.id_usuario, fresh=True)
+            refresh_token = create_refresh_token(usuario.id_usuario)
+            return {
+                'access_token': access_token,
+                'refresh_token': refresh_token
+            }, 200
+        return {'message': mc.WRONG_LOGIN}

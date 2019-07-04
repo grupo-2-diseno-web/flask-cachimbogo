@@ -6,7 +6,7 @@ from schemas.subtema import SubTemaSchema
 
 class PreguntaSchema(ma.ModelSchema):
     subtema = ma.Nested(SubTemaSchema)
-
+    #clave1 = fields.String(required=True, error_messages={'required': "clave1 es requerido"})
     class Meta:
         model = PreguntaModel
         load_only = ("id_subtema",)

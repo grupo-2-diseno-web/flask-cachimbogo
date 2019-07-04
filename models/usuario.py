@@ -11,3 +11,15 @@ class UsuarioModel(db.Model):
     apellidos = db.Column(db.String(80), nullable=False)
     correo = db.Column(db.String(30), unique=True, nullable=False)
     monedas = db.Column(db.Integer)
+
+    def guardar_en_la_bd(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def existe_usuario(cls, usuario, correo):
+        return cls.query.filter(db.or_(cls.usuario==usuario, cls.correo==correo)).first()
+    
+    @classmethod
+    def usuario_por(cls, usuario):
+        return cls.query.filter_by(usuario=usuario).first()

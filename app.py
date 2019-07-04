@@ -27,6 +27,10 @@ api.init_api()
 def handle_marshmallow_validation(err):
     return jsonify(err.messages), 400
 
+@app.errorhandler(404)
+def not_found(err):
+    return jsonify({'mensaje': 'recurso no encontrado'}), 404
+
 if __name__ == '__main__':
     app.run(debug=True, use_debugger=True,
             use_reloader=True, host="0.0.0.0")

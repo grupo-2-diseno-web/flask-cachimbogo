@@ -7,4 +7,4 @@ class SubTemaSchema(ma.ModelSchema):
 
     class Meta:
         model = SubTemaModel
-        fields = ("id_subtema", "nombre", "tema")
+        fields = ("id_subtema", "nombre")
