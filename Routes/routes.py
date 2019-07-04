@@ -1,7 +1,6 @@
 from flask_restful import Api
-from Resources.Login.login_resource import Login
 from Resources.Pregunta.pregunta_resource import Pregunta, ListaDePreguntas, ListaDePreguntasAleatorias
-from Resources.Usuario.usuario_resource import Usuario, UsuarioLogin
+from Resources.Usuario.usuario_resource import Usuario, UsuarioLogin, UsuarioLogout
 from Resources.Respuesta.respuesta_resource import Respuesta
 from Resources.UsuarioAsignatura.usuario_asignatura_resource import UsuarioAsignatura
 from Resources.UsuarioTema.usuario_tema_resource import UsuarioTema
@@ -18,6 +17,7 @@ class ApiRest(object):
 
     def init_api(self):
         self.api.add_resource(UsuarioLogin, '/login')
+        self.api.add_resource(UsuarioLogout, '/logout')
         self.api.add_resource(Pregunta, '/pregunta/<int:id>/<int:completado>',
                               '/pregunta', '/pregunta/<int:id>', '/pregunta/<string:tipo>/<int:id>')
         self.api.add_resource(ListaDePreguntas, '/preguntas')

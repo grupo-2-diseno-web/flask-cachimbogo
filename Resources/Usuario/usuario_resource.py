@@ -2,10 +2,11 @@ from flask_restful import Resource
 import Utils.messages_constants as mc
 from Utils.crypto import Crypto
 from flask import request
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token, get_raw_jwt, get_jwt_identity, jwt_required
 from models.usuario import UsuarioModel
 from schemas.usuario import UsuarioSchema
 from schemas.login import LoginSchema
+from blacklist import BLACKLIST
 
 usuario_schema = UsuarioSchema()
 login_schema = LoginSchema()
@@ -38,3 +39,12 @@ class UsuarioLogin(Resource):
                 'refresh_token': refresh_token
             }, 200
         return {'message': mc.WRONG_LOGIN}
+
+
+class UsuarioLogout(Resource):
+    @classmethod
+    @jwt_required
+    def post(cls):
+        jti = get_raw_jwt()['jti'] # jti is "JWT ID", a unique identifier for a JWT.
+        BLACKLIST.add(jti)
+        return {'message': 'Sesión cerrada exitosamente'}, 200

@@ -5,6 +5,7 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from Utils.crypto import Crypto
 import os
+from blacklist import BLACKLIST
 from config import Config
 from marshmallow import ValidationError
 from ma import ma
@@ -30,6 +31,10 @@ def handle_marshmallow_validation(err):
 @app.errorhandler(404)
 def not_found(err):
     return jsonify({'mensaje': 'recurso no encontrado'}), 404
+
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    return decrypted_token['jti'] in BLACKLIST
 
 if __name__ == '__main__':
     app.run(debug=True, use_debugger=True,
